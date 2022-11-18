@@ -40,7 +40,7 @@ objects:
       resources:
         requests:
           storage: ${DB_PVC_SIZE}
-      storageClassName: netapp-file-standard
+      storageClassName: 
   - kind: ImageStream
     apiVersion: v1
     metadata:

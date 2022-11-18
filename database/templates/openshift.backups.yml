@@ -77,7 +77,7 @@ objects:
       resources:
         requests:
           storage: "${PVC_SIZE}"
-      storageClassName: netapp-file-standard
+      storageClassName: 
   - kind: CronJob
     apiVersion: "batch/v1"
     metadata:
