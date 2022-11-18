@@ -11,7 +11,7 @@ jobs:
   pr-greeting:
     name: PR Greeting
     env:
-      DOMAIN: ${{ secrets.OC_DOMAIN }}
+      DOMAIN: apps.bronze.aot-technologies.com
       PREFIX: ${{ github.event.repository.name }}-${{ github.event.number }}
     runs-on: ubuntu-22.04
     permissions:
