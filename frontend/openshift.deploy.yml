@@ -17,7 +17,7 @@ parameters:
     description: Image tag to use
     value: latest
   - name: DOMAIN
-    value: ${{secrets.OC_DOMAIN}}
+    value: apps.bronze.aot-technologies.com
   - name: CPU_REQUEST
     value: "25m"
   - name: MEMORY_REQUEST
