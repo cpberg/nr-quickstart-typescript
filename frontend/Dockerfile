@@ -12,13 +12,10 @@ RUN apk update && apk upgrade && \
 # install app dependencies
 COPY package.json ./
 COPY package-lock.json ./
+RUN rm -rf ./config
 RUN npm install
 RUN npm install react-scripts -g
 RUN npm update
-
-RUN echo 'TESTING'
-RUN ls
-#RUN rm -rf ./config
 
 # add app
 COPY . ./
