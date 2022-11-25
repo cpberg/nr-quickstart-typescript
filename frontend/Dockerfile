@@ -6,14 +6,15 @@ RUN dnf module install -y nodejs:14
 WORKDIR /app
 
 COPY ./package*.json ./
-RUN npm ci
+RUN npm cache clear --force
+RUN npm install 
 
 # Copy app files
 COPY . .
 # ==== BUILD =====
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 # RUN npm install 
-RUN npm ci
+RUN npm install
 
 RUN npm run build
 
