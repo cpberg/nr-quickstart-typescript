@@ -16,6 +16,10 @@ RUN npm install
 RUN npm install react-scripts -g
 RUN npm update
 
+RUN echo 'TESTING'
+RUN ls
+#RUN rm -rf ./config
+
 # add app
 COPY . ./
 
