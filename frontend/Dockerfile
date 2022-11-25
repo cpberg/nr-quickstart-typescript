@@ -6,6 +6,8 @@ WORKDIR /app
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
+RUN chown -R $USER:$(id -gn $USER) /.config
+
 # install app dependencies
 COPY package.json ./
 COPY package-lock.json ./
