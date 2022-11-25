@@ -1,30 +1,23 @@
-FROM node:14.17.0-alpine as build-stage
+# RedHat UBI 8 with nodejs 14
+FROM registry.access.redhat.com/ubi8/ubi as builder
+RUN dnf module install -y nodejs:14
 
-# set working directory
+# Set the working directory to /app inside the container
 WORKDIR /app
 
-RUN set -x \
-	&& chmod -R 777 /app
+COPY ./package*.json ./
+RUN npm ci
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+# Copy app files
+COPY . .
+# ==== BUILD =====
+# Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
+# RUN npm install 
+RUN npm ci
 
-RUN mkdir /.npm
-RUN chown -R 1000870000:0 "/.npm"
+RUN npm run build
 
-RUN apk update && apk upgrade && \
-  apk add --no-cache bash git openssh
+EXPOSE 3000
 
-# install app dependencies
-COPY package.json ./
-#COPY package-lock.json ./
-
-RUN npm install
-RUN npm install react-scripts -g
-#RUN npm run build
-
-# add app
-COPY . /app
-
-EXPOSE 3000:3000
-CMD ["npm", "run", "start"]
+# Start the app
+CMD [ "npx", "serve", "build" ]
