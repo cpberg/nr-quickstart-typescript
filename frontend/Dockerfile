@@ -1,4 +1,4 @@
-FROM node:18.10-alpine as build-stage
+FROM node:14.17.0-alpine as build-stage
 
 # set working directory
 WORKDIR /app
@@ -9,6 +9,9 @@ RUN set -x \
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
+RUN mkdir /.npm
+RUN chown -R 1000870000:0 "/.npm"
+
 RUN apk update && apk upgrade && \
   apk add --no-cache bash git openssh
 
@@ -16,12 +19,9 @@ RUN apk update && apk upgrade && \
 COPY package.json ./
 #COPY package-lock.json ./
 
-RUN mkdir /.npm
-RUN chown -R 1000870000:0 "/.npm"
-
 RUN npm install
 RUN npm install react-scripts -g
-RUN npm run build
+#RUN npm run build
 
 # add app
 COPY . /app
