@@ -28,9 +28,6 @@ COPY . ./
 
 EXPOSE 3000
 
-# Non-privileged user
-USER app
-RUN chown -R $USER:$(id -gn $USER) /.config
 
 # start app
 CMD ["npm", "start"]
