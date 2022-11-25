@@ -12,7 +12,7 @@ RUN apk update && apk upgrade && \
 # install app dependencies
 COPY package.json ./
 COPY package-lock.json ./
-RUN rm -rf ./config
+
 RUN npm install
 RUN npm install react-scripts -g
 RUN npm update
@@ -21,6 +21,10 @@ RUN npm update
 COPY . ./
 
 EXPOSE 3000
+
+# Non-privileged user
+USER app
+RUN chown -R $USER:$(id -gn $USER) /.config
 
 # start app
 CMD ["npm", "start"]
