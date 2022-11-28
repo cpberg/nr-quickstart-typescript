@@ -5,17 +5,19 @@ RUN dnf module install -y nodejs:14
 # Set the working directory to /app inside the container
 WORKDIR /app
 
+# Install app dependencies
 COPY ./package*.json ./
+
+# Clear cache to avoid permission errors on the /.npm directory
 RUN npm cache clear --force
-RUN npm install
+
+# Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
+RUN npm ci
 
 # Copy app files
 COPY . .
-# ==== BUILD =====
-# Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
-# RUN npm install 
-RUN npm install
 
+# ==== BUILD =====
 RUN npm run build
 
 EXPOSE 3000
