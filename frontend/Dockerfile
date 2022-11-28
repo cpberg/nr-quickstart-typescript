@@ -11,6 +11,10 @@ COPY ./package*.json ./
 # Clear cache to avoid permission errors on the /.npm directory
 RUN npm cache clear --force
 
+# TODO: Fix required when upgrading from node:14 to node:18
+RUN mkdir /.npm
+RUN chown -R 1000870000:0 "/.npm"
+
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci
 
