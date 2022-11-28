@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import "./Header.css";
+import "./Header.scss";
 import { PATHS } from "../../../constants/paths";
+
+interface IListItemProps {
+  path: string;
+  label: string;
+}
 
 export const Header = () => {
   const TOGGLE_WIDTH = 768;
@@ -50,16 +55,16 @@ export const Header = () => {
 
   const NavButton = () => (
     <div className="other">
-      <a className="nav-btn" onClick={toggleDropdown}>
+      <button className="nav-btn" onClick={toggleDropdown}>
         <i className="fas fa-bars" id="menu"></i>
-      </a>
+      </button>
     </div>
   );
 
-  const ListItem = (props:any) => (
+  const ListItem = ({ path, label } : IListItemProps ) => (
     <li>
-      <NavLink to={props.path} onClick={toggleDropdown}>
-        {props.label}
+      <NavLink to={path} onClick={toggleDropdown}>
+        {label}
       </NavLink>
     </li>
   );
